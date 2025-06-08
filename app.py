@@ -18,6 +18,7 @@ from src.utils.theme_manager import ThemeManager
 from src.utils.system_metrics import SystemMetrics
 from src.components.metric_components import MetricBox, GraphFrame, PieChartFrame
 from src.components.memory_analyzer import MemoryAnalyzerTab
+from src.components.disk_analyzer import DiskAnalyzerTab
 
 class SystemMonitor(ctk.CTk):
     def __init__(self):
@@ -70,7 +71,8 @@ class SystemMonitor(ctk.CTk):
         # Navigation buttons
         sections = {
             "Overview": "🏠", "CPU": "⚡", "Memory": "💾",
-            "Virtual Memory": "📊", "Disk": "💿", "Memory Analyzer": "🔍"
+            "Virtual Memory": "📊", "Disk": "💿", "Memory Analyzer": "🔍",
+            "Disk Analyzer": "🗂️"
         }
         
         nav_frame = ctk.CTkFrame(self.sidebar, fg_color="transparent")
@@ -101,6 +103,7 @@ class SystemMonitor(ctk.CTk):
         self.create_virtual_memory_section()
         self.create_disk_section()
         self.create_memory_analyzer_section()
+        self.create_disk_analyzer_section()
         
         self.main_frame.bind("<Configure>", self.on_frame_configure)
         self.canvas.bind("<Configure>", self.on_canvas_configure)
@@ -233,6 +236,9 @@ class SystemMonitor(ctk.CTk):
 
     def create_memory_analyzer_section(self):
         self.sections["Memory Analyzer"] = MemoryAnalyzerTab(self.main_frame, self.colors)
+
+    def create_disk_analyzer_section(self):
+        self.sections["Disk Analyzer"] = DiskAnalyzerTab(self.main_frame, self.colors)
 
     def create_status_bar(self):
         self.status_bar = ctk.CTkFrame(self, height=30, fg_color=self.colors["surface"])
